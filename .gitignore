@@ -1,0 +1,6 @@
+/resource/**
+/ignore/**
+*.code-workspace
+Poof-O-Floof/src/main/resources/application.properties
+Poof-O-Floof-ui\node_modules
+.vscode

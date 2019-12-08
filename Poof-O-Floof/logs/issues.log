@@ -1,0 +1,78 @@
+[WARN ] 2019-12-04 22:55:20.619 [main]  - Exception Message: Server returned HTTP response code: 401 for URL: https://api.petfinder.com/v2/animals?location=38.953524,-77.350450&radius=20
+[WARN ] 2019-12-04 22:55:20.621 [main]  - Stack Trace: 
+java.io.IOException: Server returned HTTP response code: 401 for URL: https://api.petfinder.com/v2/animals?location=38.953524,-77.350450&radius=20
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(Unknown Source) ~[?:1.8.0_231]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(Unknown Source) ~[?:1.8.0_231]
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getInputStream(Unknown Source) ~[?:1.8.0_231]
+	at petfinder.PetFinderConnectionUtil.requestAnimalsByLocation(PetFinderConnectionUtil.java:124) [classes/:?]
+	at driver.MainDriver.testPetFinder(MainDriver.java:23) [classes/:?]
+	at driver.MainDriver.main(MainDriver.java:16) [classes/:?]
+[ERROR] 2019-12-07 15:25:20.943 [main]  - Unable to locate Properties at src/main/resources/application.properties
+[ERROR] 2019-12-07 15:25:20.943 [main]  - Stack Trace: 
+java.lang.NullPointerException: inStream parameter is null
+	at java.base/java.util.Objects.requireNonNull(Objects.java:246) ~[?:?]
+	at java.base/java.util.Properties.load(Properties.java:403) ~[?:?]
+	at petfinder.PetFinderConnectionUtil.getProperties(PetFinderConnectionUtil.java:59) [classes/:?]
+	at petfinder.PetFinderConnectionUtil.<clinit>(PetFinderConnectionUtil.java:35) [classes/:?]
+	at driver.MainDriver.<clinit>(MainDriver.java:13) [classes/:?]
+[ERROR] 2019-12-07 15:25:36.880 [main]  - Unable to locate Properties at src/main/resources/application.properties
+[ERROR] 2019-12-07 15:25:36.880 [main]  - Stack Trace: 
+java.lang.NullPointerException: inStream parameter is null
+	at java.base/java.util.Objects.requireNonNull(Objects.java:246) ~[?:?]
+	at java.base/java.util.Properties.load(Properties.java:403) ~[?:?]
+	at petfinder.PetFinderConnectionUtil.getProperties(PetFinderConnectionUtil.java:59) [classes/:?]
+	at petfinder.PetFinderConnectionUtil.<clinit>(PetFinderConnectionUtil.java:35) [classes/:?]
+	at driver.MainDriver.<clinit>(MainDriver.java:13) [classes/:?]
+[ERROR] 2019-12-07 15:26:18.231 [main]  - Unable to locate Properties at src/main/resources/application.properties
+[ERROR] 2019-12-07 15:26:18.231 [main]  - Stack Trace: 
+java.lang.NullPointerException: inStream parameter is null
+	at java.base/java.util.Objects.requireNonNull(Objects.java:246) ~[?:?]
+	at java.base/java.util.Properties.load(Properties.java:403) ~[?:?]
+	at petfinder.PetFinderConnectionUtil.getProperties(PetFinderConnectionUtil.java:59) [classes/:?]
+	at petfinder.PetFinderConnectionUtil.<clinit>(PetFinderConnectionUtil.java:35) [classes/:?]
+	at driver.MainDriver.<clinit>(MainDriver.java:13) [classes/:?]
+[WARN ] 2019-12-07 22:35:39.890 [main] Exceptions - SQL Message: IO Error: NL Exception was generated
+[WARN ] 2019-12-07 22:35:39.891 [main] Exceptions - Error Code: 17002
+[WARN ] 2019-12-07 22:35:39.891 [main] Exceptions - SQL State: 08006
+[WARN ] 2019-12-07 22:35:39.891 [main] Exceptions - Stack Trace: 
+java.sql.SQLRecoverableException: IO Error: NL Exception was generated
+	at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:673) ~[ojdbc7-12.2.0.1.0.jar:12.1.0.1.0]
+	at oracle.jdbc.driver.PhysicalConnection.<init>(PhysicalConnection.java:715) ~[ojdbc7-12.2.0.1.0.jar:12.1.0.1.0]
+	at oracle.jdbc.driver.T4CConnection.<init>(T4CConnection.java:385) ~[ojdbc7-12.2.0.1.0.jar:12.1.0.1.0]
+	at oracle.jdbc.driver.T4CDriverExtension.getConnection(T4CDriverExtension.java:30) ~[ojdbc7-12.2.0.1.0.jar:12.1.0.1.0]
+	at oracle.jdbc.driver.OracleDriver.connect(OracleDriver.java:564) ~[ojdbc7-12.2.0.1.0.jar:12.1.0.1.0]
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677) ~[java.sql:?]
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:228) ~[java.sql:?]
+	at util.ConnectionUtil.getConnection(ConnectionUtil.java:31) [classes/:?]
+	at databaseTest.ConnectionTest.connectionFactory_SmokeTest(ConnectionTest.java:16) [test-classes/:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567) ~[?:?]
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50) [junit-4.12.jar:4.12]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.12.jar:4.12]
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47) [junit-4.12.jar:4.12]
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17) [junit-4.12.jar:4.12]
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325) [junit-4.12.jar:4.12]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78) [junit-4.12.jar:4.12]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57) [junit-4.12.jar:4.12]
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290) [junit-4.12.jar:4.12]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71) [junit-4.12.jar:4.12]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288) [junit-4.12.jar:4.12]
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58) [junit-4.12.jar:4.12]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268) [junit-4.12.jar:4.12]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363) [junit-4.12.jar:4.12]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:89) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:41) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:541) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:763) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:463) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:209) [.cp/:?]
+Caused by: oracle.net.ns.NetException: NL Exception was generated
+	at oracle.net.resolver.AddrResolution.resolveAddrTree(AddrResolution.java:686) ~[ojdbc7-12.2.0.1.0.jar:12.1.0.1.0]
+	at oracle.net.resolver.AddrResolution.resolveAndExecute(AddrResolution.java:451) ~[ojdbc7-12.2.0.1.0.jar:12.1.0.1.0]
+	at oracle.net.ns.NSProtocol.establishConnection(NSProtocol.java:594) ~[ojdbc7-12.2.0.1.0.jar:12.1.0.1.0]
+	at oracle.net.ns.NSProtocol.connect(NSProtocol.java:229) ~[ojdbc7-12.2.0.1.0.jar:12.1.0.1.0]
+	at oracle.jdbc.driver.T4CConnection.connect(T4CConnection.java:1360) ~[ojdbc7-12.2.0.1.0.jar:12.1.0.1.0]
+	at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:486) ~[ojdbc7-12.2.0.1.0.jar:12.1.0.1.0]
+	... 31 more
