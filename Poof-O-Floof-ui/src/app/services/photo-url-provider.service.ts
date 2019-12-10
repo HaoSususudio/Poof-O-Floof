@@ -14,57 +14,48 @@ export class PhotoUrlProviderService {
   private photoBundleSize: number;
   private userIpLocInfo: UserIpLocInfo;
 
-  private photoStream$: ReplaySubject<AnimalPhotoJSON>;
   private photoBundle$: BehaviorSubject<Array<AnimalPhotoJSON>>;
-  private psCurrentState: PhotoStreamMetaData;
-  private psCurrentState$: BehaviorSubject<PhotoStreamMetaData>;
+  private pBSize$: BehaviorSubject<number>;
 
   constructor(
     private http: HttpClient,
     private locService: LocationService
   ) {
     this.locService.getUserIpLocInfo().subscribe(ipLoc => this.userIpLocInfo = ipLoc);
-    // this.photoStream$ = new ReplaySubject<Array<AnimalPhotoJSON>>(this.MAX_PHOTO_STREAM_SIZE);
     this.photoBundle$ = new BehaviorSubject<Array<AnimalPhotoJSON>>(undefined);
-    this.psCurrentState = new PhotoStreamMetaData();
-    this.psCurrentState.totPhotoNum = 0;
-    this.psCurrentState$ = new BehaviorSubject<PhotoStreamMetaData>(undefined);
-
-
+    this.pBSize$ = new BehaviorSubject<number>(undefined);
   }
 
   getMaxPhotoStreamSize() {
     return this.MAX_PHOTO_STREAM_SIZE;
   }
 
-  requestANewPhotoBundle(): number {
+  requestANewPhotoBundle() {
     this.http.post<Array<AnimalPhotoJSON>>(this.PHOTO_BUNDLE_URL, JSON.stringify(this.userIpLocInfo))
       .subscribe(
         photoBundle => {
-          const size = Object.keys(photoBundle).length;
-          console.log('Got photo bundle gotten from Tomcat');
-          console.log('Size: ' + Object.keys(photoBundle).length);
-          this.photoBundle$.next(photoBundle);
-          return size;
+          if (photoBundle) {
+            const pBSize = Object.keys(photoBundle).length;
+            console.log('Got photo bundle gotten from Tomcat');
+            console.log('Size: ' + pBSize);
+            this.pBSize$.next(pBSize);
+            this.photoBundle$.next(photoBundle);
+          }
         },
         error => {
           console.log('User location is not ready. Tomcat is mad.');
           // console.error(error.error);
         }
       );
-    return undefined;
+
   }
 
-  getPhotoStream(): Observable<AnimalPhotoJSON> {
-    return this.photoStream$.asObservable();
-  }
-
-  getPSCurrentState(): Observable<PhotoStreamMetaData> {
-    return this.psCurrentState$.asObservable();
-  }
-
-  signUpPhotoBundle(): Observable<Array<AnimalPhotoJSON>> {
+  publishPhotoBundle(): Observable<Array<AnimalPhotoJSON>> {
     return this.photoBundle$.asObservable();
+  }
+
+  publishPBSize(): Observable<number> {
+    return this.pBSize$.asObservable();
   }
 
 }

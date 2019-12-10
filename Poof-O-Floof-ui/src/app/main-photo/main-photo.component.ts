@@ -16,9 +16,11 @@ import { AnimalPhotoJSON } from '../services/models.service';
 export class MainPhotoComponent implements OnInit {
   private photoStream: AnimalPhotoJSON[];
   private psIndexArray: number[];
-  private psCurrentState: PhotoStreamMetaData;
   private photoDisplayIndex = 0;
   private photoStreamIndex = 0;
+  private totPhotoNum = 0;
+  // private psCurrentState: PhotoStreamMetaData;
+
   mainFramePhotoUrl: string;
   mainFramePhotoType: string;
   totalPhotoNumber: number;
@@ -33,23 +35,40 @@ export class MainPhotoComponent implements OnInit {
     const psArraySize = this.photoUrlProvider.getMaxPhotoStreamSize();
     this.psIndexArray = [...Array(psArraySize).keys()];
     this.photoStream = [];
-    this.psCurrentState = new PhotoStreamMetaData();
+    this.psIndexArray = [];
+    // this.psCurrentState = new PhotoStreamMetaData();
   }
 
   ngOnInit() {
     console.log('Echo from ngOnInit');
-    this.photoUrlProvider.signUpPhotoBundle().subscribe(
-      pd => {
-        if (pd && pd.length) {
-          console.log(pd);
-          // this.photoStream.concat(pd);
-          this.photoStream = this.photoStream.concat(pd);
+    this.photoUrlProvider.publishPhotoBundle().subscribe(
+      pB => {
+        if (pB && pB.length) {
+          console.log(pB);
+          this.photoStream = this.photoStream.concat(pB);
+        }
+      });
+    this.photoUrlProvider.publishPBSize().subscribe(
+      pdSize => {
+        if (pdSize) {
+          console.log('pdSize: ' + pdSize);
+          this.psIndexArray = this.psIndexArray.concat(this.shuffle(this.makeIntArr(this.totPhotoNum, pdSize)));
+          this.totPhotoNum += pdSize;
+          console.log('totPhotoNum: ' + this.totPhotoNum);
         }
       });
   }
 
   addMorePhotos() {
-    console.log('in component, size: ' + this.photoUrlProvider.requestANewPhotoBundle());
+    this.photoUrlProvider.requestANewPhotoBundle();
+    // .subscribe(
+    //   pdSize => {
+    //     if (pdSize) {
+    //       console.log('pdSize: ' + pdSize);
+    //     }
+    //   }
+    // );
+
     // .subscribe(
     //   pscs => {
     //     if (pscs) {
@@ -64,7 +83,9 @@ export class MainPhotoComponent implements OnInit {
   }
 
   printPS() {
-    console.log(this.photoStream);
+    // console.log(this.photoStream);
+    console.log(this.psIndexArray);
+    // console.log(this.shuffle(this.makeIntArr(0, 5)));
   }
 
   nextRandomPhoto() {
@@ -85,10 +106,18 @@ export class MainPhotoComponent implements OnInit {
    * Fisher–Yates shuffle algorithm, O(n) complexity
    * @param arr: Array to be shuffled
    */
-  shuffle(arr: Array<any>, startIndex: number, endIndex: number) {
-    for (let i = endIndex; i > startIndex; i--) {
+  shuffle(arr: Array<any>) {
+    for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  makeIntArr(start: number, length: number): Array<number> {
+    const arr = [];
+    for (let i = start; i < start + length; i++) {
+      arr.push(i);
     }
     return arr;
   }
