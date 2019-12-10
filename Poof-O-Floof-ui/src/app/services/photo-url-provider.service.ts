@@ -13,29 +13,32 @@ export class PhotoUrlProviderService {
   private photoBundleSize: number;
   private userIpLocInfo: UserIpLocInfo;
 
-  private photoStream$ = new ReplaySubject<AnimalPhotoJSON>(this.MAX_PHOTO_STREAM_SIZE);
-  private photoStreamCurrentState = new PhotoStreamMetaData();
-  private photoStreamCurrentState$ = new BehaviorSubject<PhotoStreamMetaData>(undefined);
+  private photoStream$: ReplaySubject<AnimalPhotoJSON>;
+  private psCurrentState: PhotoStreamMetaData;
+  private psCurrentState$: BehaviorSubject<PhotoStreamMetaData>;
 
   constructor(
     private http: HttpClient,
     private locService: LocationService
   ) {
-    this.photoStreamCurrentState.maxStreamSize = this.MAX_PHOTO_STREAM_SIZE;
     this.locService.getUserIpLocInfo();
+    this.photoStream$ = new ReplaySubject<AnimalPhotoJSON>(this.MAX_PHOTO_STREAM_SIZE);
+    this.psCurrentState = new PhotoStreamMetaData();
+    this.psCurrentState.totPhotoNum = 0;
+    this.psCurrentState$ = new BehaviorSubject<PhotoStreamMetaData>(undefined);
   }
 
   getMaxPhotoStreamSize() {
     return this.MAX_PHOTO_STREAM_SIZE;
   }
 
-  requestANewPhotoBundle(ipLoc: UserIpLocInfo) {
+  requestANewPhotoBundle(ipLoc: UserIpLocInfo): Observable<PhotoStreamMetaData> {
     this.http.post<AnimalPhotoJSON>(this.PHOTO_BUNDLE_URL, JSON.stringify(ipLoc))
       .subscribe(
         data => {
-          this.photoStreamCurrentState.lastPhotoBundleSize = Object.keys(data).length;
-          console.log('New Bundle Size:' + this.photoStreamCurrentState.lastPhotoBundleSize);
-          this.photoStreamCurrentState$.next(this.photoStreamCurrentState);
+          this.psCurrentState.lastBundleSize = Object.keys(data).length;
+          this.psCurrentState.totPhotoNum += this.psCurrentState.lastBundleSize;
+          this.psCurrentState$.next(this.psCurrentState);
           this.photoStream$.next(data);
         },
         error => {
@@ -43,14 +46,15 @@ export class PhotoUrlProviderService {
           // console.error(error.error);
         }
       );
+    return this.psCurrentState$.asObservable();
   }
 
-  getPhotoStream() {
+  getPhotoStream(): Observable<AnimalPhotoJSON> {
     return this.photoStream$.asObservable();
   }
 
-  getPhotoStreamCurrentState() {
-    return this.photoStreamCurrentState$.asObservable();
+  getPhotoStreamCurrentState(): Observable<PhotoStreamMetaData> {
+    return this.psCurrentState$.asObservable();
   }
 
 }

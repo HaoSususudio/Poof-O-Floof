@@ -8,7 +8,6 @@ export class UserIpLocInfo {
 }
 
 export class PhotoStreamMetaData {
-  maxStreamSize: number;
-  lastPhotoStartIndex: number;
-  lastPhotoBundleSize: number;
+  lastBundleSize: number;
+  totPhotoNum: number;
 }
