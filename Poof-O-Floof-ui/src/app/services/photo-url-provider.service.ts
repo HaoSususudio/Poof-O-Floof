@@ -56,7 +56,6 @@ export class PhotoUrlProviderService {
   getPhotoStreamCurrentState(): Observable<PhotoStreamMetaData> {
     return this.psCurrentState$.asObservable();
   }
-
 }
 
 export interface AnimalPhotoJSON {

@@ -14,55 +14,52 @@ import petfinder.PetFinderConnectionUtil;
 import util.Json;
 
 public class LocationDispatcher implements Dispatcher {
+	private static final Logger logger = LogManager.getLogger();
+	private static PetFinderConnectionUtil pfcu = PetFinderConnectionUtil.getInstance();
+	private static final int RADIUS = 50;
 
-  private static final Logger logger = LogManager.getLogger();
+	@Override
+	public boolean supports(HttpServletRequest request) {
+		logger.info(isPostLocation(request));
+		return isPostLocation(request);
+	}
 
-  private static final int RADIUS = 50;
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			// get the token
+			pfcu.requestNewToken();
+			
+			// get coordinates
+			LocationRequest locReq = (LocationRequest) Json.read(request.getInputStream(), LocationRequest.class);
+			// if location object is not null
+			if (locReq != null) {
+				String location = locReq.getCoords();
+				logger.info("location is: " + location);
+				String animals = pfcu.requestAnimalsByLocation(location, RADIUS);
 
-  @Override
-  public boolean supports(HttpServletRequest request) {
-    logger.info(isPostLocation(request));
-    return isPostLocation(request);
-  }
+				// pass only photos to front end
+				logger.debug("A Photo Bundle is sent to the requester.");
+				logger.info("Animal sent:" + animals);
+				response.setHeader("Content-type", "application/json");
+				response.getWriter().write(animals);
+				return;
+			} else {
+				String animals = pfcu.requestAnimals();
 
-  @Override
-  public void execute(HttpServletRequest request, HttpServletResponse response) {
-    // to do:
-    // take in json object instead of string - done
-    // write list of animals in way thats easier to work with
-    // pagination or something
-    try {
-      // get coordinates
-      LocationRequest locReq = (LocationRequest) Json.read(request.getInputStream(),
-          LocationRequest.class);
-      String location = locReq.getCoords();
-      logger.debug("location is: " + location);
+				// pass only photos to front end
+				logger.debug("A Photo Bundle is sent to the requester.");
+				logger.info("Animal sent:" + animals);
+				response.setHeader("Content-type", "application/json");
+				response.getWriter().write(animals);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-      // put coordinates into thing
-      try {
-        PetFinderConnectionUtil pfcu = PetFinderConnectionUtil.getInstance();
-        pfcu.requestNewToken();
-        String animalList = pfcu.requestAnimalsByLocation(location, RADIUS);
-
-        // pass only photos to front end
-        logger.debug("A Photo Bundle is sent to the requester.");
-        logger.trace("Animal sent:" + animalList);
-        response.setHeader("Content-type", "application/json");
-        response.getWriter().write(animalList);
-        // response.getOutputStream().write(Json.write(animalList));
-        return;
-
-      } catch (MalformedURLException e) {
-        e.printStackTrace();
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  private boolean isPostLocation(HttpServletRequest req) {
-    return req.getMethod().equals("POST")
-        && req.getRequestURI().contentEquals("/Poof-O-Floof/api/location");
-  }
+	private boolean isPostLocation(HttpServletRequest req) {
+		return req.getMethod().equals("POST") && req.getRequestURI().contentEquals("/Poof-O-Floof/api/location");
+	}
 
 }

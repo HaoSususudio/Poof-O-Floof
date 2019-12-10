@@ -1,19 +1,17 @@
-<p>social-media works!</p>
-
 <h2>Share poofie on Social Media</h2>
 <br>
 
-<p>Share your poofie cutie on your social media :)</p>
+<p>Share the current poofie cutie on your social media :)</p>
 <div class="jumbotron text-center">
     <div class="row">
         <div class="col">
-            <app-twitter></app-twitter>
+            <app-twitter url={{mainFramePhotoUrl}}></app-twitter>
         </div>
         <div class="col">
-            <app-facebook></app-facebook>
+            <app-facebook url={{mainFramePhotoUrl}}></app-facebook>
         </div>
         <div class="col">
-            <app-pinterest></app-pinterest>
+            <app-pinterest url={{mainFramePhotoUrl}}></app-pinterest>
         </div>
     </div>
 </div>

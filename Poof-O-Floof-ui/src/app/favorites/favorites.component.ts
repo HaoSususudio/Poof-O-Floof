@@ -12,4 +12,12 @@ export class FavoritesComponent implements OnInit {
   ngOnInit() {
   }
 
+  addToFavorites() {
+    alert('Photo added to Favorites');
+  }
+/*<button (click)="addToFavorites()">
+   Favorite Photo
+</button>
+<br />*/
+
 }
