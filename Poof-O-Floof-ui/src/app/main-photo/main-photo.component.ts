@@ -16,19 +16,15 @@ export class MainPhotoComponent implements OnInit {
   private psIndexArray: Array<number>;
   private photoDisplayIndex = 0;
   private photoStreamIndex = 0;
-  private mainFramePhotoUrl: string;
-  private mainFramePhotoType: string;
+  mainFramePhotoUrl: string;
+  mainFramePhotoType: string;
   private LARGE_URL_SUFFIX = '&width=600';
-  psCurrentState: PhotoStreamMetaData;
 
   constructor(
     private locService: LocationService,
     private photoUrlProvider: PhotoUrlProviderService,
   ) {
-    this.psCurrentState = new PhotoStreamMetaData();
     const psArraySize = this.photoUrlProvider.getMaxPhotoStreamSize();
-    const newBundleStartIndex = 0;
-    const newBundleEndIndex = 0;
     this.psIndexArray = [...Array(psArraySize).keys()];
   }
 
@@ -45,16 +41,14 @@ export class MainPhotoComponent implements OnInit {
             .subscribe(
               pscs => {
                 if (pscs !== undefined) {
-                  this.psCurrentState = pscs;
+                  // this.psCurrentState = pscs;
                   this.shuffle(this.psIndexArray, pscs.totPhotoNum - pscs.lastBundleSize, pscs.totPhotoNum - 1);
-                  console.log(this.psIndexArray);
                 }
               });
         });
   }
 
   nextRandomPhoto() {
-    console.log(this.psIndexArray);
     this.photoDisplayIndex += 1;
     this.setMainFramePhotoUrl();
   }
@@ -66,15 +60,6 @@ export class MainPhotoComponent implements OnInit {
           this.photoStreamIndex = this.psIndexArray[this.photoDisplayIndex];
           this.mainFramePhotoUrl = data[this.photoStreamIndex].fullUrl + this.LARGE_URL_SUFFIX;
           this.mainFramePhotoType = data[this.photoStreamIndex].type;
-        }
-      );
-  }
-
-  setPhotoStreamCurrentState() {
-    this.photoUrlProvider.getPhotoStreamCurrentState()
-      .subscribe(
-        data => {
-          this.psCurrentState = data;
         }
       );
   }
