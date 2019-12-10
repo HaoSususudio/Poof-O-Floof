@@ -22,7 +22,7 @@ export class LocationService {
     this.getCoordsByPermission(); // Will overwrite the coords if user provides the fine location.
   }
 
-  getUserIpLocInfo(): Observable<UserIpLocInfo> {
+  pubUserIpLocInfo(): Observable<UserIpLocInfo> {
     if (!this.userIpLocInfo$.value) {
       if (this.ipApiCoInfo) {
         this.userIpLocInfo$.next(this.ipApiCoInfo);
@@ -36,14 +36,15 @@ export class LocationService {
     if (this.permissionCoords) {
       this.userIpLocInfo$.value.coords = this.permissionCoords;
     }
-
     return this.userIpLocInfo$.asObservable();
   }
+
 
   getCoordsByPermission() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.permissionCoords = `${position.coords.latitude},${position.coords.longitude}`;
+        console.log('Location provided by user.');
       });
     } else {
       console.log('Browser does not support for geolocation');
@@ -54,6 +55,7 @@ export class LocationService {
     this.http.get<IpApiCoJSON>(this.IPAPICO_URL)
       .subscribe(
         data => {
+          console.log('Location provided by ipapi.co.');
           this.ipApiCoInfo.ip = data.ip;
           this.ipApiCoInfo.coords = `${data.latitude},${data.longitude}`;
           this.ipApiCoInfo.postal = data.postal;
@@ -72,6 +74,7 @@ export class LocationService {
     this.http.get<IpGeolocComJSON>(this.IPGEOLOCCOM_URL)
       .subscribe(
         data => {
+          console.log('Location provided by ipgeolocation.com.');
           this.ipGeoLocComInfo.ip = data.ip;
           this.ipGeoLocComInfo.coords = data.coords;
           this.ipGeoLocComInfo.postal = data.postal;

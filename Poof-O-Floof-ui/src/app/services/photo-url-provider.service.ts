@@ -10,9 +10,9 @@ import { AnimalPhotoJSON } from '../services/models.service';
 export class PhotoUrlProviderService {
   // private TEST_PHOTO_BUNDLE_URL = 'https://jsonplaceholder.typicode.com/photos?albumId=1';
   private PHOTO_BUNDLE_URL = 'http://localhost:8080/Poof-O-Floof/api/location';
-  private MAX_PHOTO_STREAM_SIZE = 200;
+  // private MAX_PHOTO_STREAM_SIZE = 200;
   private photoBundleSize: number;
-  private userIpLocInfo: UserIpLocInfo;
+  userIpLocInfo: UserIpLocInfo;
 
   private photoBundle$: BehaviorSubject<Array<AnimalPhotoJSON>>;
   private pBSize$: BehaviorSubject<number>;
@@ -21,17 +21,13 @@ export class PhotoUrlProviderService {
     private http: HttpClient,
     private locService: LocationService
   ) {
-    this.locService.getUserIpLocInfo().subscribe(ipLoc => this.userIpLocInfo = ipLoc);
     this.photoBundle$ = new BehaviorSubject<Array<AnimalPhotoJSON>>(undefined);
     this.pBSize$ = new BehaviorSubject<number>(undefined);
   }
 
-  getMaxPhotoStreamSize() {
-    return this.MAX_PHOTO_STREAM_SIZE;
-  }
-
-  requestANewPhotoBundle() {
-    this.http.post<Array<AnimalPhotoJSON>>(this.PHOTO_BUNDLE_URL, JSON.stringify(this.userIpLocInfo))
+  requestANewPhotoBundle(ipLoc: UserIpLocInfo) {
+    console.log('ipLoc: ' + ipLoc);
+    this.http.post<Array<AnimalPhotoJSON>>(this.PHOTO_BUNDLE_URL, JSON.stringify(ipLoc))
       .subscribe(
         photoBundle => {
           if (photoBundle) {
@@ -50,14 +46,20 @@ export class PhotoUrlProviderService {
 
   }
 
-  publishPhotoBundle(): Observable<Array<AnimalPhotoJSON>> {
+  pubPhotoBundle(): Observable<Array<AnimalPhotoJSON>> {
     return this.photoBundle$.asObservable();
   }
 
-  publishPBSize(): Observable<number> {
+  pubPBSize(): Observable<number> {
     return this.pBSize$.asObservable();
   }
 
+  // setUserIpLocInfo(ipLoc: UserIpLocInfo) {
+  //   this.userIpLocInfo = ipLoc;
+  // }
+  // getUserIpLocInfo() {
+  //   return this.userIpLocInfo;
+  // }
 }
 
 export interface TestPhotoJSON {

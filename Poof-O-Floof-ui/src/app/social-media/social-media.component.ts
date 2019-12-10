@@ -18,8 +18,8 @@ export class SocialMediaComponent implements OnInit {
   constructor(
     private photoUrlProvider: PhotoUrlProviderService
   ) {
-    const photoStreamArraySize = this.photoUrlProvider.getMaxPhotoStreamSize();
-    this.photoStreamIndexArray = [...Array(photoStreamArraySize).keys()];
+    // const photoStreamArraySize = this.photoUrlProvider.getMaxPhotoStreamSize();
+    // this.photoStreamIndexArray = [...Array(photoStreamArraySize).keys()];
   }
 
   ngOnInit() {
@@ -27,12 +27,12 @@ export class SocialMediaComponent implements OnInit {
   }
 
   setMainFramePhotoUrl() {
-    this.photoUrlProvider.getPhotoStream()
-      .subscribe(
-        data => {
-          this.photoStreamIndex = this.photoStreamIndexArray[this.photoDisplayIndex];
-          this.mainFramePhotoUrl = data[this.photoStreamIndex].fullUrl + this.LARGE_URL_SUFFIX;
-        }
-      );
+    // this.photoUrlProvider.getPhotoStream()
+    //   .subscribe(
+    //     data => {
+    //       this.photoStreamIndex = this.photoStreamIndexArray[this.photoDisplayIndex];
+    //       this.mainFramePhotoUrl = data[this.photoStreamIndex].fullUrl + this.LARGE_URL_SUFFIX;
+    //     }
+    //   );
   }
 }

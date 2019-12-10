@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LocationService } from './services/location.service';
 import { UserIpLocInfo } from './services/models.service';
+import { PhotoUrlProviderService } from './services/photo-url-provider.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -15,18 +16,18 @@ export class AppComponent implements OnInit {
   userIpLocInfo: UserIpLocInfo;
 
   constructor(
-    private http: HttpClient,
-    private locService: LocationService
-  ) { this.locService.getUserIpLocInfo(); }
+    // private http: HttpClient,
+    private locService: LocationService,
+    // private photoUrlProvider: PhotoUrlProviderService
+  ) { this.subPhotoUrlProvider(); }
 
-  ngOnInit(): void { this.getUserIpLocInfo(); }
+  ngOnInit(): void { this.subPhotoUrlProvider(); }
 
-  getUserIpLocInfo() {
-    this.locService.getUserIpLocInfo().subscribe(
-      (data) => {
-        this.userIpLocInfo = data;
+  subPhotoUrlProvider() {
+    this.locService.pubUserIpLocInfo().subscribe(
+      (ipLoc) => {
+        this.userIpLocInfo = ipLoc;
       }
     );
   }
-
 }

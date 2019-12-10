@@ -18,68 +18,58 @@ export class MainPhotoComponent implements OnInit {
   private psIndexArray: number[];
   private photoDisplayIndex = 0;
   private photoStreamIndex = 0;
-  private totPhotoNum = 0;
-  // private psCurrentState: PhotoStreamMetaData;
+  totPhotoNum = 0;
+  photoBundleSize = 0;
 
   mainFramePhotoUrl: string;
   mainFramePhotoType: string;
-  totalPhotoNumber: number;
-  lastBundleSize: number;
   private PHOTO_RESERVE_SIZE = 5;
   private LARGE_URL_SUFFIX = '&width=600';
 
   constructor(
     private locService: LocationService,
-    private photoUrlProvider: PhotoUrlProviderService,
+    private photoUrlProvider: PhotoUrlProviderService
   ) {
-    const psArraySize = this.photoUrlProvider.getMaxPhotoStreamSize();
-    this.psIndexArray = [...Array(psArraySize).keys()];
     this.photoStream = [];
     this.psIndexArray = [];
-    // this.psCurrentState = new PhotoStreamMetaData();
   }
 
   ngOnInit() {
-    console.log('Echo from ngOnInit');
-    this.photoUrlProvider.publishPhotoBundle().subscribe(
+    console.log('Echo from main-photo ngOnInit');
+    this.subPhotoBundle();
+    this.subPBSize();
+    // this.nextRandomPhoto();
+    // this.addMorePhotos();
+  }
+
+  subPhotoBundle() {
+    this.photoUrlProvider.pubPhotoBundle().subscribe(
       pB => {
         if (pB && pB.length) {
           console.log(pB);
           this.photoStream = this.photoStream.concat(pB);
         }
       });
-    this.photoUrlProvider.publishPBSize().subscribe(
-      pdSize => {
-        if (pdSize) {
-          console.log('pdSize: ' + pdSize);
-          this.psIndexArray = this.psIndexArray.concat(this.shuffle(this.makeIntArr(this.totPhotoNum, pdSize)));
-          this.totPhotoNum += pdSize;
+  }
+
+  subPBSize() {
+    this.photoUrlProvider.pubPBSize().subscribe(
+      pBSize => {
+        if (pBSize) {
+          this.photoBundleSize = pBSize;
+          console.log('pdSize: ' + pBSize);
+          this.psIndexArray = this.psIndexArray.concat(this.shuffle(this.makeIntArr(this.totPhotoNum, pBSize)));
+          this.totPhotoNum += pBSize;
           console.log('totPhotoNum: ' + this.totPhotoNum);
         }
       });
   }
 
   addMorePhotos() {
-    this.photoUrlProvider.requestANewPhotoBundle();
-    // .subscribe(
-    //   pdSize => {
-    //     if (pdSize) {
-    //       console.log('pdSize: ' + pdSize);
-    //     }
-    //   }
-    // );
-
-    // .subscribe(
-    //   pscs => {
-    //     if (pscs) {
-    //       this.totalPhotoNumber = pscs.totPhotoNum;
-    //       this.lastBundleSize = pscs.totPhotoNum;
-    //       const shuffleStart = pscs.totPhotoNum - pscs.lastBundleSize;
-    //       const shuffleEnd = pscs.totPhotoNum - 1;
-    //       this.shuffle(this.psIndexArray, shuffleStart, shuffleEnd);
-    //       console.log(this.psIndexArray);
-    //     }
-    //   });
+    this.locService.pubUserIpLocInfo().subscribe(
+      ipLoc => {
+        this.photoUrlProvider.requestANewPhotoBundle(ipLoc);
+      });
   }
 
   printPS() {
@@ -90,10 +80,10 @@ export class MainPhotoComponent implements OnInit {
 
   nextRandomPhoto() {
     this.setMainFramePhotoUrl();
-    this.photoDisplayIndex += 1;
-    if (this.photoDisplayIndex < this.totalPhotoNumber - this.PHOTO_RESERVE_SIZE) {
+    if (this.photoDisplayIndex === this.totPhotoNum - this.PHOTO_RESERVE_SIZE) {
       this.addMorePhotos();
     }
+    this.photoDisplayIndex += 1;
   }
 
   setMainFramePhotoUrl() {
