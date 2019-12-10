@@ -11,3 +11,10 @@ export class PhotoStreamMetaData {
   lastBundleSize: number;
   totPhotoNum: number;
 }
+
+export class AnimalPhotoJSON {
+  animalId: number;
+  photoId: number;
+  type: string;
+  fullUrl: string;
+}
