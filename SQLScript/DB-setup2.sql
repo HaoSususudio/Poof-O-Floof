@@ -40,6 +40,7 @@ CREATE TABLE animal (
 CREATE SEQUENCE favorite_id_seq;
 CREATE TABLE favorite (
     favorite_id number PRIMARY KEY,         -- = 
+    url varchar2(50),
     user_id number NOT NULL                 -- = 
         REFERENCES users(user_id),
     animal_id number                        --changed type to number

@@ -121,6 +121,7 @@ public class PetfinderUrlVisitor implements PetfinderVisitor {
 	}
 	
 	public void setRandomNumber(int randomNumberMax) {
+		logger.debug("randomNumberMax = {}", randomNumberMax);
 		PetfinderUrlVisitor.randomNumberMax = randomNumberMax;
 	}
 

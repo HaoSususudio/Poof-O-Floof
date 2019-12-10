@@ -74,6 +74,7 @@ public class PetFinderConnectionUtil {
 				out.append(line);
 			}
 			String response = out.toString();
+			logger.info("TOKEN: {}", response);
 			Matcher matcher = pat.matcher(response);
 			if (matcher.matches() && matcher.groupCount() > 0) {
 				currentToken = matcher.group(1);
@@ -100,8 +101,9 @@ public class PetFinderConnectionUtil {
 	 */
 	public String requestAnimalsByLocation(String location, int distance) throws MalformedURLException {
 		URL apiUrl = petVisitor.urlBuilder(location, "adoptable", distance, 1);
+		HttpsURLConnection connection = null;
 		try {
-			HttpsURLConnection connection = (HttpsURLConnection) apiUrl.openConnection();
+			connection = (HttpsURLConnection) apiUrl.openConnection();
 			connection.setRequestProperty("Authorization", "Bearer " + currentToken);
 			connection.setDoOutput(true);
 			connection.setRequestMethod("GET");
@@ -112,8 +114,9 @@ public class PetFinderConnectionUtil {
 			while ((line = reader.readLine()) != null) {
 				out.append(line);
 			}
-			connection.disconnect();
 			String response = out.toString();
+			reader.close();
+			out.close();
 			StringBuilder sbResponse = parseOutAnimalInformation(response);
 			if (null != sbResponse) {
 				return "[" + sbResponse + "]";
@@ -123,6 +126,8 @@ public class PetFinderConnectionUtil {
 		} catch (Exception e) {
 			logger.warn("Exception Message: {}", e.getMessage());
 			logger.warn("Stack Trace: ", e);
+		} finally {
+			connection.disconnect();
 		}
 		return null;
 	}
@@ -133,8 +138,9 @@ public class PetFinderConnectionUtil {
 	 */
 	public String requestAnimals() throws MalformedURLException {
 		URL apiUrl = petVisitor.urlBuilder(null, null, -1, 1);
+		HttpsURLConnection connection = null;
 		try {
-			HttpsURLConnection connection = (HttpsURLConnection) apiUrl.openConnection();
+			connection = (HttpsURLConnection) apiUrl.openConnection();
 			connection.setRequestProperty("Authorization", "Bearer " + currentToken);
 			connection.setDoOutput(true);
 			connection.setRequestMethod("GET");
@@ -145,8 +151,9 @@ public class PetFinderConnectionUtil {
 			while ((line = reader.readLine()) != null) {
 				out.append(line);
 			}
-			connection.disconnect();
 			String response = out.toString();
+			reader.close();
+			out.close();
 			StringBuilder sbResponse = parseOutAnimalInformation(response);
 			if (null != sbResponse) {
 				return "[" + sbResponse + "]";
@@ -156,6 +163,8 @@ public class PetFinderConnectionUtil {
 		} catch (Exception e) {
 			logger.warn("Exception Message: {}", e.getMessage());
 			logger.warn("Stack Trace: ", e);
+		} finally {
+			connection.disconnect();
 		}
 		return null;
 	}
@@ -212,7 +221,7 @@ public class PetFinderConnectionUtil {
 		
 		// if you want to prevent wasting memory by setting an Integer everytime. once this runs, set it pageMaxSet = true;
 		if(!pageMaxSet) {
-			// pageMaxSet = true;
+			// pageMaxSet = true; // set true to prevent resetting the total page count
 			petVisitor.setRandomNumber(Integer.parseInt(jsonNode.get("pagination").get("total_pages").toString()));
 		}
 		return sb;
