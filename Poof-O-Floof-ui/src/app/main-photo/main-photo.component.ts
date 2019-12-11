@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PhotoUrlProviderService, TestPhotoJSON } from '../services/photo-url-provider.service';
+import { PhotoUrlProviderService } from '../services/photo-url-provider.service';
 // import { FavPhotoUrlProviderService } from '../services/fav-photo-url-provider.service';
 import { LocationService } from '../services/location.service';
 import { AnimalPhotoJSON } from '../services/models.service';
@@ -122,7 +122,5 @@ export class MainPhotoComponent implements OnInit {
     }
     return arr;
   }
-
-
 
 }

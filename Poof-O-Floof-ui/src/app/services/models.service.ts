@@ -19,3 +19,9 @@ export class AnimalPhotoJSON {
   fullUrl: string;
   url: string;
 }
+
+export class FavPhotoJSON {
+  small: string;
+  medium: string;
+  big: string;
+}
