@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MainPhotoComponent } from '../main-photo/main-photo.component';
-import { PhotoUrlProviderService, TestPhotoJSON } from '../services/photo-url-provider.service';
+import { PhotoUrlProviderService } from '../services/photo-url-provider.service';
 import { ReplaySubject, BehaviorSubject } from 'rxjs';
 
 @Component({
