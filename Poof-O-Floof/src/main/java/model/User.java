@@ -8,7 +8,6 @@ public class User {
     
 	public User() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public User(int userId, String currentIp, String currentIpLocation, String displayName) {

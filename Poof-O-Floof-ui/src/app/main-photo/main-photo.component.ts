@@ -23,9 +23,15 @@ export class MainPhotoComponent implements OnInit {
   private PHOTO_RESERVE_SIZE = 5;
   private LARGE_URL_SUFFIX = '&width=600';
 
+  /* favPhotoStreamIndexArray: Array<number>;
+  favPhotoDisplayIndex = 0;
+  favPhotoStreamIndex = 0;
+  favFramePhotoUrl: string; */
+
   constructor(
     private locService: LocationService,
-    private photoUrlProvider: PhotoUrlProviderService
+    private photoUrlProvider: PhotoUrlProviderService,
+    // private favPhotoUrlProvider: FavPhotoUrlProviderService,
   ) {
     this.photoStream = [];
     this.psIndexArray = [];
@@ -107,14 +113,20 @@ export class MainPhotoComponent implements OnInit {
   //   this.setFavFramePhotoUrl();
   //   this.favPhotoDisplayIndex += 1;
   // }
+  /* addToFavorites() {
+    alert('Photo added to Favorites');
+    this.setFavFramePhotoUrl();
+    this.favPhotoDisplayIndex += 1;
+  }
 
-  // setFavFramePhotoUrl() {
-  //   this.photoUrlProvider.getPhotoStream()
-  //     .subscribe(
-  //       data => {
-  //         this.favPhotoStreamIndex = this.favPhotoStreamIndexArray[this.favPhotoDisplayIndex];
-  //         this.favFramePhotoUrl = data[this.favPhotoStreamIndex].fullUrl + this.LARGE_URL_SUFFIX;
-  //       }
-  //     );
-  // }
+
+  setFavFramePhotoUrl() {
+    this.favPhotoUrlProvider.getPhotoStream()
+      .subscribe(
+        data => {
+          this.favPhotoStreamIndex = this.favPhotoStreamIndexArray[this.favPhotoDisplayIndex];
+          this.favFramePhotoUrl = data[this.favPhotoStreamIndex].url + this.LARGE_URL_SUFFIX;
+        } //hard code user and json file and push to server side
+      );
+  } */
 }

@@ -14,6 +14,7 @@ import { FacebookComponent } from './facebook/facebook.component';
 import { PinterestComponent } from './pinterest/pinterest.component';
 import { NavComponent } from './nav/nav.component';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { NgxGalleryModule } from 'ngx-gallery';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { FavoritesComponent } from './favorites/favorites.component';
       { path: 'pinterest' , component: PinterestComponent },
       { path: 'favorites' , component: FavoritesComponent }
     ]),
-    JwSocialButtonsModule
+    JwSocialButtonsModule,
+    NgxGalleryModule
   ],
   declarations: [
     AppComponent,

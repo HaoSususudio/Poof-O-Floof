@@ -16,10 +16,10 @@ Configuration:
       fileName: ${LOGS_PATH}/issues.log
       Filters:
         ThresholdFilter:
-          level: warn
+          level: trace
   Loggers:
     Root:
       AppenderRef:
         - ref: Console
         - ref: File
-      level: DEBUG 
+      level: TRACE 
