@@ -1,29 +1,40 @@
 package model;
 
 public class Photo {
-	private String id;
-	private String photoId;
+	private int animalId;
+	private int photoId;
+	private String type;
 	private String fullUrl;
+	private String url;
 	public Photo() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Photo(String id, String photoId, String fullUrl) {
+	public Photo(int animalId, int photoId, String type, String fullUrl, String url) {
 		super();
-		this.id = id;
+		this.animalId = animalId;
 		this.photoId = photoId;
+		this.type = type;
 		this.fullUrl = fullUrl;
+		this.url = url;
 	}
-	public String getId() {
-		return id;
+	public int getAnimalId() {
+		return animalId;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setAnimalId(int animalId) {
+		this.animalId = animalId;
 	}
-	public String getPhotoId() {
+	public int getPhotoId() {
 		return photoId;
 	}
-	public void setPhotoId(String photoId) {
+	public void setPhotoId(int photoId) {
 		this.photoId = photoId;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	public String getFullUrl() {
 		return fullUrl;
@@ -31,13 +42,21 @@ public class Photo {
 	public void setFullUrl(String fullUrl) {
 		this.fullUrl = fullUrl;
 	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + animalId;
 		result = prime * result + ((fullUrl == null) ? 0 : fullUrl.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((photoId == null) ? 0 : photoId.hashCode());
+		result = prime * result + photoId;
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + ((url == null) ? 0 : url.hashCode());
 		return result;
 	}
 	@Override
@@ -49,28 +68,32 @@ public class Photo {
 		if (getClass() != obj.getClass())
 			return false;
 		Photo other = (Photo) obj;
+		if (animalId != other.animalId)
+			return false;
 		if (fullUrl == null) {
 			if (other.fullUrl != null)
 				return false;
 		} else if (!fullUrl.equals(other.fullUrl))
 			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
+		if (photoId != other.photoId)
 			return false;
-		if (photoId == null) {
-			if (other.photoId != null)
+		if (type == null) {
+			if (other.type != null)
 				return false;
-		} else if (!photoId.equals(other.photoId))
+		} else if (!type.equals(other.type))
+			return false;
+		if (url == null) {
+			if (other.url != null)
+				return false;
+		} else if (!url.equals(other.url))
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "Photo [id=" + id + ", photoId=" + photoId + ", fullUrl=" + fullUrl + "]";
+		return "Photo [animalId=" + animalId + ", photoId=" + photoId + ", type=" + type + ", fullUrl=" + fullUrl
+				+ ", url=" + url + "]";
 	}
 	
 	
-
 }

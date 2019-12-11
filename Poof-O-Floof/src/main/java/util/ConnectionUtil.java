@@ -36,6 +36,16 @@ public class ConnectionUtil {
 		}
 	}
 
+	// Fail Fast
+	static {
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			logger.error("Failed to load JDBC Driver: {}", e);
+			System.exit(1);
+		}
+	}
+	
 	// All this method does is retrieve our particular properties needed to connect
 	// to DB
 	private static Properties getProperties() {

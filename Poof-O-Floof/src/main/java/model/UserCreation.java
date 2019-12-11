@@ -9,7 +9,6 @@ public class UserCreation {
 	
 	public UserCreation() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public UserCreation(String currentIp, String currentIpLocation, String displayName, String email, String password) {

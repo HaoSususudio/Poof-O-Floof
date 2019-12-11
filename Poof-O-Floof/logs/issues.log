@@ -76,3 +76,21 @@ Caused by: oracle.net.ns.NetException: NL Exception was generated
 	at oracle.jdbc.driver.T4CConnection.connect(T4CConnection.java:1360) ~[ojdbc7-12.2.0.1.0.jar:12.1.0.1.0]
 	at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:486) ~[ojdbc7-12.2.0.1.0.jar:12.1.0.1.0]
 	... 31 more
+[DEBUG] 2019-12-09 23:29:03.148 [main] ConnectionUtil - jdbc:oracle:thin:@demos-1909.ckgbgyuehmou.us-east-2.rds.amazonaws.com:1521:orcl
+[DEBUG] 2019-12-09 23:29:03.150 [main] ConnectionUtil - project2
+[DEBUG] 2019-12-09 23:29:03.150 [main] ConnectionUtil - p4ssw0rd
+[DEBUG] 2019-12-09 23:29:04.058 [main] ConnectionUtil - oracle.jdbc.driver.T4CConnection@4df50bcc
+[TRACE] 2019-12-09 23:29:04.605 [main]  - true
+[DEBUG] 2019-12-09 23:29:04.605 [main] ConnectionUtil - jdbc:oracle:thin:@demos-1909.ckgbgyuehmou.us-east-2.rds.amazonaws.com:1521:orcl
+[DEBUG] 2019-12-09 23:29:04.605 [main] ConnectionUtil - project2
+[DEBUG] 2019-12-09 23:29:04.606 [main] ConnectionUtil - p4ssw0rd
+[DEBUG] 2019-12-09 23:29:04.887 [main] ConnectionUtil - oracle.jdbc.driver.T4CConnection@26e356f0
+[TRACE] 2019-12-09 23:29:05.334 [main]  - true
+[TRACE] 2019-12-10 18:32:21.677 [main]  - testSalt= ro3wK3JQ5hQ25NXTWsbMgQ==
+[TRACE] 2019-12-10 18:32:22.825 [main]  - testKey= rdHRNYURZFgDdI9AZTmoKrl+2aN6avTHDizeb+FO2RDf4hjXbyJyUEdTnsXut6G0fhfqw4D4ZAwEQib0KDpe7Q==
+[TRACE] 2019-12-10 18:32:22.972 [main]  - true
+[TRACE] 2019-12-10 18:32:23.112 [main]  - false
+[TRACE] 2019-12-10 18:43:23.823 [main]  - testSalt= IEUsRWKiG+jKqD026w6AZA==
+[TRACE] 2019-12-10 18:43:24.545 [main]  - testKey= JjO83+4yOsfQykT3M1752ZOE1x0nIO36S7EzP+/ws/uL5OIU6mfXsKKzlmL3m4yNhsL0m9x5OVFYPTcKsL4iHQ==
+[TRACE] 2019-12-10 18:43:24.703 [main]  - true
+[TRACE] 2019-12-10 18:43:24.847 [main]  - false

@@ -7,5 +7,7 @@ import model.UserLogin;
 public interface UserDao {
 	User login(UserLogin loginCredentials);
 	
-	boolean createUser(UserCreation userCreation);
+	User findByUsername(String username);
+	
+	boolean createUser(User user);
 }

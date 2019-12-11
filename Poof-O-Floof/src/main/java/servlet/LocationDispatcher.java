@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +12,11 @@ import model.LocationRequest;
 import petfinder.PetFinderConnectionUtil;
 import util.Json;
 
+/**
+ * 
+ * @author Tim
+ *
+ */
 public class LocationDispatcher implements Dispatcher {
 	private static final Logger logger = LogManager.getLogger();
 	private static PetFinderConnectionUtil pfcu = PetFinderConnectionUtil.getInstance();
@@ -26,10 +30,11 @@ public class LocationDispatcher implements Dispatcher {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
+
 		try {
 			// get the token
 			pfcu.requestNewToken();
-			
+
 			// get coordinates
 			LocationRequest locReq = (LocationRequest) Json.read(request.getInputStream(), LocationRequest.class);
 			// if location object is not null

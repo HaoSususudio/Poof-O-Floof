@@ -1,4 +1,51 @@
 # Poof-O-Floof
+
+```json
+Registration:
+URI: /Poof-O-Floof/api/register
+Method: POST
+Body:
+{ 
+  "displayName": "duck",
+  "password": "goose"
+}
+Returns 409 error if username is already taken
+
+Login:
+URI: /Poof-O-Floof/api/login
+Method: POST
+Body:
+{ 
+  "username": "goose",
+  "password": "frog"
+}
+Returns 401 error code if username is not in database or if password is incorrect
+
+Don't ask why one is displayName and one is username
+```
+
+```json
+//Format for sending favorite requests
+//Saving favorites:
+//URI: /Poof-O-Floof/api/favorite
+//Method: POST
+//Parameter: userId=2
+//can also write parameter in URI in the form /Poof-O-Floof/api/favorite?userId=2
+//Body:
+{ 
+  "animalId": 456,
+  "photoId": 1234,
+  "fullUrl": "postdog.com",
+  "type": "spider"
+}
+
+//Getting list of photos:
+//URI: /Poof-O-Floof/api/favorite
+//Method: GET
+//Parameter: userId=2
+//can also write parameter in URI in the form /Poof-O-Floof/api/favorite?userId=2
+//Body: NONE!!!
+```
 ## 2019/12/08
 * The app has barebone functionality: POST ip-location to server, and display the animal photos
 * Things that need to be done before presentation:

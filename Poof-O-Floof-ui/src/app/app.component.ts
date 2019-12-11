@@ -4,6 +4,7 @@ import { LocationService } from './services/location.service';
 import { UserIpLocInfo } from './services/models.service';
 import { PhotoUrlProviderService } from './services/photo-url-provider.service';
 import { Observable } from 'rxjs';
+// import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,8 @@ import { Observable } from 'rxjs';
 export class AppComponent implements OnInit {
   title = 'Poof-O-Floof';
   userIpLocInfo: UserIpLocInfo;
+ // galleryOptions: NgxGalleryOptions[];
+ // galleryImages: NgxGalleryImage[];
 
   constructor(
     private locService: LocationService,

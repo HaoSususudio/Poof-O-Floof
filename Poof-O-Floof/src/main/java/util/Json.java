@@ -9,22 +9,34 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import servlet.LocationDispatcher;
 
+/**
+ * 
+ * @author Tim
+ *
+ */
 public class Json {
-	
+
 	// For readability/maintainability
 	public static final String CONTENT_TYPE = "application/json";
-	
+
 	private static final ObjectMapper mapper = new ObjectMapper();
-	
+
 	// invoke <clinit> (don't have to do this, I like the pretty print)
 	static {
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 	}
-	
+
 	// Restrict Instantiation
-	private Json() {}
-	
-	
+	private Json() {
+	}
+
+	/**
+	 * Replace {@link ObjectMapper} <b>writeValueAsBytes</b> with just one one
+	 * object
+	 * 
+	 * @param o = the <b>Object</b> being passed in
+	 * @return
+	 */
 	public static byte[] write(Object o) {
 		try {
 			return mapper.writeValueAsBytes(o);
@@ -33,7 +45,13 @@ public class Json {
 			return null;
 		}
 	}
-	
+
+	/**
+	 * 
+	 * @param is
+	 * @param clazz
+	 * @return
+	 */
 	public static Object read(InputStream is, Class<?> clazz) {
 		try {
 			return mapper.readValue(is, clazz);
@@ -42,10 +60,11 @@ public class Json {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Reads a String Json value and palces information within JsonNode.class
-	 * @param str = the String Json that was inputted
+	 * 
+	 * @param str   = the String Json that was inputted
 	 * @param clazz = class using this method
 	 * @return return an ObjectMapper value OR null.
 	 */
@@ -57,22 +76,4 @@ public class Json {
 			return null;
 		}
 	}
-	public static byte[] writeString(String str, Class<?> clazz) {
-		try {
-			return mapper.writeValueAsBytes(str);
-		} catch (IOException e) {
-			Exceptions.logJsonMarshalException(e, clazz);
-			return null;
-		}
-	}
 }
-
-
-
-
-
-
-
-
-
-
