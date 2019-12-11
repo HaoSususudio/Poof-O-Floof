@@ -22,7 +22,7 @@ export class MainPhotoComponent implements OnInit {
   mainFramePhotoUrl: string;
   adoptionUrl: string;
   mainFramePhotoType: string;
-  private PHOTO_RESERVE_SIZE = 5;
+  private PHOTO_RESERVE_SIZE = 20;
   private LARGE_URL_SUFFIX = '&width=600';
 
   private FAV_POST_URL = 'http://localhost:8080/Poof-O-Floof/api/favorite?userId=';
@@ -75,7 +75,7 @@ export class MainPhotoComponent implements OnInit {
   }
 
   nextRandomPhoto() {
-    if (this.photoDisplayIndex === this.totPhotoNum - this.PHOTO_RESERVE_SIZE) {
+    if (this.totPhotoNum - this.photoDisplayIndex < this.PHOTO_RESERVE_SIZE) {
       this.addMorePhotos();
     }
     this.photoDisplayIndex += 1;
