@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PhotoUrlProviderService, TestPhotoJSON } from '../services/photo-url-provider.service';
 // import { FavPhotoUrlProviderService } from '../services/fav-photo-url-provider.service';
-import { PhotoStreamMetaData, UserIpLocInfo } from '../services/models.service';
-import { ReplaySubject, BehaviorSubject } from 'rxjs';
-import { ConditionalExpr } from '@angular/compiler';
 import { LocationService } from '../services/location.service';
 import { AnimalPhotoJSON } from '../services/models.service';
 
@@ -35,19 +32,20 @@ export class MainPhotoComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Echo from main-photo ngOnInit');
     this.subPhotoBundle();
     this.subPBSize();
-    // this.nextRandomPhoto();
-    // this.addMorePhotos();
+    this.addMorePhotos();
   }
 
   subPhotoBundle() {
     this.photoUrlProvider.pubPhotoBundle().subscribe(
       pB => {
         if (pB && pB.length) {
-          console.log(pB);
           this.photoStream = this.photoStream.concat(pB);
+          if (!this.mainFramePhotoUrl) {
+            console.log('Main photo url not yes set. Now setting it.');
+            this.setMainFramePhotoUrl();
+          }
         }
       });
   }
@@ -57,10 +55,8 @@ export class MainPhotoComponent implements OnInit {
       pBSize => {
         if (pBSize) {
           this.photoBundleSize = pBSize;
-          console.log('pdSize: ' + pBSize);
           this.psIndexArray = this.psIndexArray.concat(this.shuffle(this.makeIntArr(this.totPhotoNum, pBSize)));
           this.totPhotoNum += pBSize;
-          console.log('totPhotoNum: ' + this.totPhotoNum);
         }
       });
   }
@@ -72,18 +68,12 @@ export class MainPhotoComponent implements OnInit {
       });
   }
 
-  printPS() {
-    // console.log(this.photoStream);
-    console.log(this.psIndexArray);
-    // console.log(this.shuffle(this.makeIntArr(0, 5)));
-  }
-
   nextRandomPhoto() {
-    this.setMainFramePhotoUrl();
     if (this.photoDisplayIndex === this.totPhotoNum - this.PHOTO_RESERVE_SIZE) {
       this.addMorePhotos();
     }
     this.photoDisplayIndex += 1;
+    this.setMainFramePhotoUrl();
   }
 
   setMainFramePhotoUrl() {

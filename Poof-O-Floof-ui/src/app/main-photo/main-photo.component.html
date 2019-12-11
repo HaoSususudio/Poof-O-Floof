@@ -3,23 +3,13 @@
 </button>
 <br />
 <button (click)="addMorePhotos()">
-  Force Add More Photos
+  Force Adding More Photos
 </button>
 <br />
-<br />
-<button (click)="printPS()">
-  Print all PS url
-</button>
-<br />
-<br />
-
 <div>
-  <h4>totalPhotoNumber: {{totPhotoNum}}</h4>
-  <h4>lastBundleSize: {{photoBundleSize}}</h4>
-  <h4>photoDisplayIndex: {{photoDisplayIndex}}</h4>
-  <h4>photoStreamIndex: {{photoStreamIndex}}</h4>
-  <h4>mainFramePhotoUrl: {{mainFramePhotoUrl}}</h4>
-  <h4>type: {{mainFramePhotoType}}</h4>
+  <p>totalPhotoNumber: {{totPhotoNum}}, lastBundleSize: {{photoBundleSize}}</p>
+  <p>photoDisplayIndex: {{photoDisplayIndex}}, photoStreamIndex: {{photoStreamIndex}}</p>
+  <p>type: {{mainFramePhotoType}}</p>
   <img src="{{mainFramePhotoUrl}}">
 </div>
 
