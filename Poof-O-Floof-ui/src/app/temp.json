@@ -30,3 +30,21 @@
     "fullUrl": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/46709502/3/?bust=1574968541"
   }
 ]
+
+
+{
+  "animalId": 46814195,
+  "photoId": 1576032111,
+  "type": "Dog",
+  "fullUrl": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/46814195/2/?bust=1576032111&width=100",
+  "Url": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/46814195/2/?bust=1576032111&width=600",
+  "bigUrl": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/46814195/2/?bust=1576032111"
+}
+
+
+animalId: number;
+photoId: number;
+type: string;
+smallUrl: string;
+mediumUrl: string;
+bigUrl: string; // big instead of large to match npm-gallery package format

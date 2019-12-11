@@ -81,14 +81,15 @@ public class SqlPreparedVisitor implements SqlVisitor{
 		return ps;
 	}
 
-	private static final String SAVE_PHOTO = "INSERT INTO photo (id, photo_id, animal_id, animal_type, full_url, url) "
-			+ "VALUES (photo_id_seq.nextval, ?, ?, ?, ?, ?)";
+	private static final String SAVE_PHOTO = "INSERT INTO photo (id, photo_id, animal_id, user_id, animal_type, full_url, url) "
+			+ "VALUES (photo_id_seq.nextval, ?, ?, ?, ?, ?, ?)";
 	@Override
 	public PreparedStatement savePhoto(Connection conn, int userId, Photo photo) throws SQLException {
 		PreparedStatement ps = conn.prepareStatement(SAVE_PHOTO);
 		int stIndex = 0;
 		ps.setInt(++stIndex, photo.getAnimalId());
 		ps.setInt(++stIndex, photo.getPhotoId());
+		ps.setInt(++stIndex, userId);
 		ps.setString(++stIndex, photo.getType());
 		ps.setString(++stIndex, photo.getFullUrl());
 		ps.setString(++stIndex, photo.getUrl());

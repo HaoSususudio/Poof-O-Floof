@@ -7,9 +7,7 @@ import { PhotoStreamMetaData } from '../services/models.service';
 
 export class FavPhotoUrlProviderService {
   private FAV_PHOTO_BUNDLE_URL = 'http://localhost:8080/Poof-O-Floof/api/favorite?userId=525252';
- // private TEST_PHOTO_BUNDLE_URL = 'https://jsonplaceholder.typicode.com/photos?albumId=1';
 
-// private TEST_PHOTO_BUNDLE_URL = 'https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/44378531/1/?bust=1575686254';
  private photoStream$: BehaviorSubject<Array<FavoritePhotoJSON>>;
 
  constructor(
