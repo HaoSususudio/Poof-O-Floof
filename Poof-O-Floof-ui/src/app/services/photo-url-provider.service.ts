@@ -15,7 +15,6 @@ export class PhotoUrlProviderService {
 
   constructor(
     private http: HttpClient,
-    // private locService: LocationService
   ) {
     this.photoBundle$ = new BehaviorSubject<Array<AnimalPhotoJSON>>(undefined);
     this.pBSize$ = new BehaviorSubject<number>(undefined);

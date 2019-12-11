@@ -8,20 +8,20 @@ import { PhotoStreamMetaData } from '../services/models.service';
 export class FavPhotoUrlProviderService {
   private FAV_PHOTO_BUNDLE_URL = 'http://localhost:8080/Poof-O-Floof/api/favorite?userId=525252';
 
- private photoStream$: BehaviorSubject<Array<FavoritePhotoJSON>>;
+  private photoStream$: BehaviorSubject<Array<FavoritePhotoJSON>>;
 
- constructor(
-  private http: HttpClient
- ) {
-//  this.photoStream$ = new ReplaySubject<AnimalPhotoJSON>();
-  this.photoStream$ = new BehaviorSubject<Array<FavoritePhotoJSON>>(undefined);
+  constructor(
+    private http: HttpClient
+  ) {
+    //  this.photoStream$ = new ReplaySubject<AnimalPhotoJSON>();
+    this.photoStream$ = new BehaviorSubject<Array<FavoritePhotoJSON>>(undefined);
   }
 
   requestFavoritePhoto() {
-    this.http.get<Array<FavoritePhotoJSON >>(this.FAV_PHOTO_BUNDLE_URL)
+    this.http.get<Array<FavoritePhotoJSON>>(this.FAV_PHOTO_BUNDLE_URL)
       .subscribe(
         data => {
-         // this.psCurrentState$.next(this.psCurrentState);
+          // this.psCurrentState$.next(this.psCurrentState);
           this.photoStream$.next(data);
         },
         error => {
@@ -30,7 +30,7 @@ export class FavPhotoUrlProviderService {
       );
   }
   getPhotoStream() {
-     return this.photoStream$.asObservable();
+    return this.photoStream$.asObservable();
   }
 }
 
