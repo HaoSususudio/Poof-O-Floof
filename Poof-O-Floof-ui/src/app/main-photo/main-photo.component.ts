@@ -75,7 +75,7 @@ export class MainPhotoComponent implements OnInit {
   }
 
   nextRandomPhoto() {
-    if (this.totPhotoNum - this.photoDisplayIndex < this.PHOTO_RESERVE_SIZE) {
+    if (this.totPhotoNum - this.photoDisplayIndex === this.PHOTO_RESERVE_SIZE) {
       this.addMorePhotos();
     }
     this.photoDisplayIndex += 1;
