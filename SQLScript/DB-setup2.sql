@@ -17,7 +17,7 @@ CREATE TABLE users (
     current_ip varchar2(50) NOT NULL,           -- = the users IP?
     current_ip_location varchar2(50) NOT NULL,  -- = the users location?
     display_name varchar2(50) UNIQUE,           -- = their display name (for messages or interactions)
-    email varchar2(50) UNIQUE,                  -- = the email of the user
+    email varchar2(50),                  -- = the email of the user
     secure_key varchar2(50) NOT NULL,           -- = 
     salt varchar2(50) NOT NULL                  -- = 
 );
@@ -81,9 +81,6 @@ INSERT INTO users (user_id, current_ip, current_ip_location, display_name, email
 INSERT INTO users (user_id, current_ip, current_ip_location, display_name, email, secure_key, salt)
     VALUES (user_id_seq.nextval, '?', '?', '?', '?', '?', '?');
     
-INSERT INTO users (user_id, current_ip, current_ip_location, display_name, email, secure_key, salt)
-    VALUES (user_id_seq.nextval, '?', '?', 'user', '?', '?', 'pass');
-
 INSERT INTO photo (animal_id, photo_id, full_url, type)
     VALUES (666, 123, 'dogpicture1.com', 'dog');
 

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import model.Photo;
+import model.User;
 import model.UserCreation;
 import model.UserLogin;
 
@@ -18,6 +19,15 @@ public interface SqlVisitor {
 	 * @throws SQLException
 	 */
 	PreparedStatement selectPhotoByUserId(Connection conn, int userId) throws SQLException;
+	
+	/**
+	 * find a user by username
+	 * @param conn
+	 * @param username
+	 * @return a {@link PreparedStatement}
+	 * @throws SQLException
+	 */
+	PreparedStatement selectUserByUsername(Connection conn, String username) throws SQLException;
 	
 	/**
 	 * check credentials of a user for login. 
@@ -35,7 +45,7 @@ public interface SqlVisitor {
 	 * @return a {@link PreparedStatement}
 	 * @throws SQLException
 	 */
-	PreparedStatement saveUsers(Connection conn, UserCreation userCreation) throws SQLException;
+	PreparedStatement saveUsers(Connection conn, User user) throws SQLException;
 
 	/**
 	 * Saves a photo linked to the users ID. 

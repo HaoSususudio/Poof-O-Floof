@@ -9,7 +9,10 @@ import org.apache.logging.log4j.Logger;
 import dao.AnimalDao;
 import dao.AnimalDaoImpl;
 import model.Photo;
+import model.User;
+import model.UserCreation;
 import petfinder.PetFinderConnectionUtil;
+import util.AuthUtil;
 
 /**
  * 
@@ -25,6 +28,7 @@ public class MainDriver {
 		// testPetFinder();
 		// testSaveDao();
 		// testGetFavoriteList();
+		testAuth();
 	}
 	
 	private static void testPetFinder() {
@@ -48,4 +52,15 @@ public class MainDriver {
 		//logger.trace(animalDao.saveFavorite(2, 121));
 		
 	}
+	
+	private static void testAuth() {
+		String testSalt = AuthUtil.generateSalt().get();
+		logger.trace("testSalt= " + testSalt);
+		String testKey = AuthUtil.hashPassword("duck", testSalt).get();
+		logger.trace("testKey= " + testKey);
+
+		logger.trace(AuthUtil.verifyPassword("duck", testKey, testSalt));
+		logger.trace(AuthUtil.verifyPassword("goose", testKey, testSalt));
+	}
+
 }

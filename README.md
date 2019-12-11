@@ -1,4 +1,29 @@
 # Poof-O-Floof
+
+```json
+Registration:
+URI: /Poof-O-Floof/api/register
+Method: POST
+Body:
+{ 
+  "displayName": "duck",
+  "password": "goose"
+}
+Returns 409 error if username is already taken
+
+Login:
+URI: /Poof-O-Floof/api/login
+Method: POST
+Body:
+{ 
+  "username": "goose",
+  "password": "frog"
+}
+Returns 401 error code if username is not in database or if password is incorrect
+
+Don't ask why one is displayName and one is username
+```
+
 ```json
 //Format for sending favorite requests
 //Saving favorites:

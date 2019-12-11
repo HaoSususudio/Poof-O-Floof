@@ -23,13 +23,19 @@ public class AuthDispatcher implements Dispatcher{
 	
 	@Override
 	public boolean supports(HttpServletRequest req) {
-		return isLogin(req) || isLogout(req) || isCurrentUser(req);
+		return isLogin(req) || isLogout(req) || isRegister(req);
 	}
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
 		if(isLogin(req)) {
 			AuthHandler.handleLogin(req, resp);
+		}
+		else if(isLogout(req)) {
+			AuthHandler.handleLogout(req, resp);
+		}
+		else if(isRegister(req)) {
+			AuthHandler.handleRegister(req, resp);
 		}
 	}
 
@@ -43,5 +49,9 @@ public class AuthDispatcher implements Dispatcher{
 	
 	private boolean isCurrentUser(HttpServletRequest req) {
 		return req.getMethod().equals("GET") && req.getRequestURI().equals("/Poof-O-Floof/api/info");
+	}
+	
+	private boolean isRegister(HttpServletRequest req) {
+		return req.getMethod().equals("POST") && req.getRequestURI().equals("/Poof-O-Floof/api/register");
 	}
 }

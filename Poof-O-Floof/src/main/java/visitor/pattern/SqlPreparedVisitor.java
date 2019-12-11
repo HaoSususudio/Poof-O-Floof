@@ -26,7 +26,8 @@ public class SqlPreparedVisitor implements SqlVisitor{
 	 ***********************************************************************************/
 	private static final String SELECT_ALL = "SELECT * FROM ";
 	private static final String SELECT_PHOTO_BY_USERID = SELECT_ALL + "photo WHERE user_id = ?";
-	private static final String SELECT_USER_BY_LOGIN = SELECT_ALL + "users WHERE display_name = ? AND salt = ?";
+	private static final String SELECT_USER_BY_USERNAME = SELECT_ALL + "users WHERE display_name = ? ";
+	private static final String SELECT_USER_BY_LOGIN = SELECT_USER_BY_USERNAME + "AND salt = ?";
 
 	/**
 	 * Not yet implemented
@@ -47,6 +48,13 @@ public class SqlPreparedVisitor implements SqlVisitor{
 	}
 
 	@Override
+	public PreparedStatement selectUserByUsername(Connection conn, String username) throws SQLException {
+		PreparedStatement ps = conn.prepareStatement(SELECT_USER_BY_USERNAME);
+		ps.setString(1, username);
+		return ps;
+	}
+	
+	@Override
 	public PreparedStatement login(Connection conn, UserLogin loginCredentials) throws SQLException {
 		PreparedStatement ps = conn.prepareStatement(SELECT_USER_BY_LOGIN);
 		int stIndex = 0;
@@ -61,15 +69,15 @@ public class SqlPreparedVisitor implements SqlVisitor{
 	private static final String SAVE_USERS = "INSERT INTO users (user_id, current_ip, current_ip_location, display_name, email, secure_key, salt) "
 			+ "VALUES(user_id_seq.nextval, ?, ?, ?, ?, ?, ?)";
 	@Override
-	public PreparedStatement saveUsers(Connection conn, UserCreation userCreation) throws SQLException {
+	public PreparedStatement saveUsers(Connection conn, User user) throws SQLException {
 		PreparedStatement ps = conn.prepareStatement(SAVE_USERS);
 		int stIndex = 0;
-		ps.setString(++stIndex, userCreation.getCurrentIp());
-		ps.setString(++stIndex, userCreation.getCurrentIpLocation());
-		ps.setString(++stIndex, userCreation.getDisplayName());
-		ps.setString(++stIndex, userCreation.getEmail());
-		ps.setString(++stIndex, "?");
-		ps.setString(++stIndex, userCreation.getPassword());
+		ps.setString(++stIndex, "666, 666");
+		ps.setString(++stIndex, "behind you");
+		ps.setString(++stIndex, user.getDisplayName());
+		ps.setString(++stIndex, "dog@cat.com");
+		ps.setString(++stIndex, user.getKey());
+		ps.setString(++stIndex, user.getSalt());
 		return ps;
 	}
 
