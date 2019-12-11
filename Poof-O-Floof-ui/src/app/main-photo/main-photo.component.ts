@@ -19,6 +19,7 @@ export class MainPhotoComponent implements OnInit {
   photoBundleSize = 0;
 
   mainFramePhotoUrl: string;
+  adoptionUrl: string;
   mainFramePhotoType: string;
   private PHOTO_RESERVE_SIZE = 5;
   private LARGE_URL_SUFFIX = '&width=600';
@@ -43,7 +44,7 @@ export class MainPhotoComponent implements OnInit {
         if (pB && pB.length) {
           this.photoStream = this.photoStream.concat(pB);
           if (!this.mainFramePhotoUrl) {
-            console.log('Main photo url not yes set. Now setting it.');
+            console.log('Main photo url not yet set. Now setting it.');
             this.setMainFramePhotoUrl();
           }
         }
@@ -80,6 +81,7 @@ export class MainPhotoComponent implements OnInit {
     this.photoStreamIndex = this.psIndexArray[this.photoDisplayIndex];
     this.mainFramePhotoUrl = this.photoStream[this.photoStreamIndex].fullUrl + this.LARGE_URL_SUFFIX;
     this.mainFramePhotoType = this.photoStream[this.photoStreamIndex].type;
+    this.adoptionUrl = this.photoStream[this.photoStreamIndex].url;
   }
 
   /**

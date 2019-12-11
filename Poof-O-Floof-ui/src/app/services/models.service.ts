@@ -17,4 +17,5 @@ export class AnimalPhotoJSON {
   photoId: number;
   type: string;
   fullUrl: string;
+  url: string;
 }

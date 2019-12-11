@@ -15,7 +15,7 @@ export class PhotoUrlProviderService {
 
   constructor(
     private http: HttpClient,
-    private locService: LocationService
+    // private locService: LocationService
   ) {
     this.photoBundle$ = new BehaviorSubject<Array<AnimalPhotoJSON>>(undefined);
     this.pBSize$ = new BehaviorSubject<number>(undefined);
@@ -30,6 +30,7 @@ export class PhotoUrlProviderService {
             if (photoBundle) {
               const pBSize = Object.keys(photoBundle).length;
               console.log(`Got a photo bundle from Tomcat, pBSize = ${pBSize}`);
+              console.log(photoBundle);
               this.pBSize$.next(pBSize);
               this.photoBundle$.next(photoBundle);
               return this.pBSize$.asObservable();

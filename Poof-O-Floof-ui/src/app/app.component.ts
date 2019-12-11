@@ -16,9 +16,7 @@ export class AppComponent implements OnInit {
   userIpLocInfo: UserIpLocInfo;
 
   constructor(
-    // private http: HttpClient,
     private locService: LocationService,
-    // private photoUrlProvider: PhotoUrlProviderService
   ) { this.subPhotoUrlProvider(); }
 
   ngOnInit(): void { this.subPhotoUrlProvider(); }
