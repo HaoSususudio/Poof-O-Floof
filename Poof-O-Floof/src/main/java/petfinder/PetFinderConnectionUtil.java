@@ -204,14 +204,14 @@ public class PetFinderConnectionUtil {
 					String[] urlArray = urlString.replace("\"", "").split("=");
 					if (urlArray.length > 1) {
 						// add every picture to the StringBuilder. 
-						sb.append("{\"id\":" + animal.get("id") 
+						sb.append("{\"animalId\":" + animal.get("id") 
 								+ ",\"photoId\":" + urlArray[1] 
 								+ ",\"type\":" + animal.get("type") 
 								+ ",\"fullUrl\":" + "\"" + urlArray[0] + "=" + urlArray[1] + "\""
 								+ ",\"url\":" + animal.get("url")
 								+ "}");
 						// logger information in JSON format. 
-						logger.trace("\n{" + "\n\t\"id\":" + animal.get("id") 
+						logger.trace("\n{" + "\n\t\"animalId\":" + animal.get("id") 
 								+ ",\n\t\"photoId\":" + urlArray[1]
 								+ ",\"type\":" + animal.get("type") 
 								+ ",\n\t\"fullUrl\":" + "\"" + urlArray[0] + "="
