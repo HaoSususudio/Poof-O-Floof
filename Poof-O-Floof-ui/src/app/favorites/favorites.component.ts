@@ -36,7 +36,7 @@ export class FavoritesComponent implements OnInit {
   this.galleryOptions = [
     {
         width: '600px',
-        height: '400px',
+        height: '800px',
         thumbnailsColumns: 4,
         imageAnimation: NgxGalleryAnimation.Slide
     },
@@ -46,9 +46,9 @@ export class FavoritesComponent implements OnInit {
         width: '100%',
         height: '600px',
         imagePercent: 80,
-        thumbnailsPercent: 20,
-        thumbnailsMargin: 20,
-        thumbnailMargin: 20
+        thumbnailsPercent: 50,
+        thumbnailsMargin: 50,
+        thumbnailMargin: 50
     },
         // max-width 400
         {
