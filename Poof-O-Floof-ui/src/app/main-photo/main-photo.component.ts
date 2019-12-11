@@ -3,6 +3,7 @@ import { PhotoUrlProviderService, TestPhotoJSON } from '../services/photo-url-pr
 // import { FavPhotoUrlProviderService } from '../services/fav-photo-url-provider.service';
 import { LocationService } from '../services/location.service';
 import { AnimalPhotoJSON } from '../services/models.service';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-main-photo',
@@ -24,15 +25,13 @@ export class MainPhotoComponent implements OnInit {
   private PHOTO_RESERVE_SIZE = 5;
   private LARGE_URL_SUFFIX = '&width=600';
 
-  /* favPhotoStreamIndexArray: Array<number>;
-  favPhotoDisplayIndex = 0;
-  favPhotoStreamIndex = 0;
-  favFramePhotoUrl: string; */
+  private FAV_POST_URL = 'http://localhost:8080/Poof-O-Floof/api/favorite?userId=';
+  private mockUserId = 525252;
 
   constructor(
     private locService: LocationService,
     private photoUrlProvider: PhotoUrlProviderService,
-    // private favPhotoUrlProvider: FavPhotoUrlProviderService,
+    private http: HttpClient
   ) {
     this.photoStream = [];
     this.psIndexArray = [];
@@ -90,6 +89,20 @@ export class MainPhotoComponent implements OnInit {
     this.adoptionUrl = this.photoStream[this.photoStreamIndex].url;
   }
 
+  addToFavorites() {
+    console.log(this.photoStream[this.photoStreamIndex]);
+    console.log(this.FAV_POST_URL + this.mockUserId);
+    const fullFavPostUrl = this.FAV_POST_URL + this.mockUserId;
+    this.http.post(fullFavPostUrl, JSON.stringify(this.photoStream[this.photoStreamIndex])).subscribe(
+      success => {
+        alert('Photo added to Favorites');
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
   /**
    * Fisher–Yates shuffle algorithm, O(n) complexity
    * @param arr: Array to be shuffled
@@ -110,25 +123,6 @@ export class MainPhotoComponent implements OnInit {
     return arr;
   }
 
-  // addToFavorites() {
-  //   alert('Photo added to Favorites');
-  //   this.setFavFramePhotoUrl();
-  //   this.favPhotoDisplayIndex += 1;
-  // }
-  /* addToFavorites() {
-    alert('Photo added to Favorites');
-    this.setFavFramePhotoUrl();
-    this.favPhotoDisplayIndex += 1;
-  }
 
 
-  setFavFramePhotoUrl() {
-    this.favPhotoUrlProvider.getPhotoStream()
-      .subscribe(
-        data => {
-          this.favPhotoStreamIndex = this.favPhotoStreamIndexArray[this.favPhotoDisplayIndex];
-          this.favFramePhotoUrl = data[this.favPhotoStreamIndex].url + this.LARGE_URL_SUFFIX;
-        } //hard code user and json file and push to server side
-      );
-  } */
 }
