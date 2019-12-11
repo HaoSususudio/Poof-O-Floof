@@ -28,7 +28,7 @@ public class MainDriver {
 		// testPetFinder();
 		// testSaveDao();
 		// testGetFavoriteList();
-		testAuth();
+		// testAuth();
 	}
 	
 	private static void testPetFinder() {
