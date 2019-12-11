@@ -38,7 +38,7 @@ CREATE TABLE photo (
         REFERENCES users(user_id),
     animal_type varchar2(30),     -- = Dog, Cat, Bird, etc.
     full_url varchar2(100),
-    url varchar2(150)
+    url varchar2(250)
 );
 
 -- table for the total number of likes for all animals (cats, dogs, birds, pigs, etc)
